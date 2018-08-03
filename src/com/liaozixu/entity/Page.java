@@ -8,6 +8,14 @@ public class Page<T> {
     private int pageNum;
     private int totalRow;
 
+    public void setRow(List<T> row) {
+        this.row = row;
+    }
+
+    public List<T> getRow() {
+        return row;
+    }
+
     //    ❤ 设置当前页
     public void setNowPage(int nowPage) {
         this.nowPage = nowPage;
@@ -63,4 +71,13 @@ public class Page<T> {
         return nowPage >= getTotalPage();
     }
 
+    @Override
+    public String toString() {
+        return "Page{" +
+                "row=" + row +
+                ", nowPage=" + nowPage +
+                ", pageNum=" + pageNum +
+                ", totalRow=" + totalRow +
+                '}';
+    }
 }

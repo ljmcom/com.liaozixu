@@ -1,5 +1,7 @@
 package com.liaozixu.entity;
 
+import com.liaozixu.util.UrlUtils;
+
 import java.util.Date;
 
 public class Article {
@@ -16,8 +18,54 @@ public class Article {
     private Date postTime;
     private String keywords;
     private String alias;
-    private String categoryID;
+    private int categoryID;
     private boolean original;
+//    拓展参数
+    private int categoryType;
+    private String categoryTitle;
+    private String categoryAlias;
+    private String categoryKeywords;
+    private String categoryDescription;
+
+    public String getCategoryAlias() {
+        return categoryAlias;
+    }
+
+    public String getCategoryKeywords() {
+        return categoryKeywords;
+    }
+
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public String getCategoryTitle() {
+        return categoryTitle;
+    }
+
+    public int getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(int categoryType) {
+        this.categoryType = categoryType;
+    }
+
+    public void setCategoryTitle(String categoryTitle) {
+        this.categoryTitle = categoryTitle;
+    }
+
+    public void setCategoryAlias(String categoryAlias) {
+        this.categoryAlias = categoryAlias;
+    }
+
+    public void setCategoryKeywords(String categoryKeywords) {
+        this.categoryKeywords = categoryKeywords;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
+    }
 
     public int getId() {
         return id;
@@ -99,11 +147,11 @@ public class Article {
         this.alias = alias;
     }
 
-    public String getCategoryID() {
+    public int getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(String categoryID) {
+    public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
 
@@ -113,5 +161,32 @@ public class Article {
 
     public void setOriginal(boolean original) {
         this.original = original;
+    }
+
+    public String getUrl(){
+        return UrlUtils.articleDetail(categoryAlias,alias);
+    }
+
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", type=" + type +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", contentText='" + contentText + '\'' +
+                ", contentRaw='" + contentRaw + '\'' +
+                ", ip='" + ip + '\'' +
+                ", postTime=" + postTime +
+                ", keywords='" + keywords + '\'' +
+                ", alias='" + alias + '\'' +
+                ", categoryID=" + categoryID +
+                ", original=" + original +
+                ", categoryType=" + categoryType +
+                ", categoryTitle='" + categoryTitle + '\'' +
+                ", categoryAlias='" + categoryAlias + '\'' +
+                ", categoryKeywords='" + categoryKeywords + '\'' +
+                ", categoryDescription='" + categoryDescription + '\'' +
+                ", getUrl='" + getUrl() + '\'' +
+                '}';
     }
 }

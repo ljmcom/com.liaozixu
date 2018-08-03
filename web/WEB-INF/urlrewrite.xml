@@ -1,0 +1,11 @@
+<urlrewrite>
+    <rule>
+        <from>^/index.html$</from>
+        <from>^/index.jsp$</from>
+        <to>/index</to>
+    </rule>
+    <rule>
+        <from>^/article/(.+)/(.+).html$</from>
+        <to>/do/article/detail?categoryAlias=$1&amp;articleAlias=$2&amp;url=$0</to>
+    </rule>
+</urlrewrite>

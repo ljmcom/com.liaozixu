@@ -249,6 +249,9 @@ public class MysqlBaseContorManager {
             while (rs.next()) {
                 HashMap<String, String> list = new HashMap<>();
                 for (int i = 1; i <= col; i++) {
+                    if(rs.getObject(i) == null || String.valueOf(rs.getObject(i)).equals("null")){
+                        continue;
+                    }
                     String keyNamePre = "";
                     if (conjunctiveTable != null) {
                         keyNamePre = rsmd.getTableName(i) + ".";
