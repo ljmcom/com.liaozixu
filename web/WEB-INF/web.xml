@@ -24,4 +24,14 @@
         <url-pattern>/</url-pattern>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <!-- api大拦截器 -->
+    <filter>
+        <filter-name>ApiFilter</filter-name>
+        <filter-class>com.liaozixu.filter.ApiFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ApiFilter</filter-name>
+        <url-pattern>/api</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
 </web-app>

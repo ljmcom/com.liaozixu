@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="com.liaozixu:war exploded">
+  <artifact type="exploded-war" build-on-make="true" name="com.liaozixu:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/com_liaozixu_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -26,7 +26,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.5" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.5" />
-          <element id="library" level="project" name="Maven: org.json:json:20180130" />
           <element id="library" level="project" name="Maven: org.tuckey:urlrewritefilter:4.0.3" />
           <element id="library" level="project" name="Maven: javax.servlet.jsp.jstl:jstl-api:1.2" />
           <element id="library" level="project" name="Maven: org.glassfish.web:jstl-impl:1.2" />
@@ -34,7 +33,14 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.0" />
-          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.28" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.1" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: com.tencentcloudapi:tencentcloud-sdk-java:3.0.8" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp:okhttp:2.5.0" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.3.0" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.3.0" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.0" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="com.liaozixu/web/Web" />

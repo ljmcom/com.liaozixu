@@ -53,14 +53,7 @@ public class Page<T> {
 
     //    获取当前页总条目
     public int getNowPageCount() {
-        if (getTotalPage() == 0) {
-            return 0;
-        }
-        if (getTotalPage() == 1 || totalRow % pageNum == 0) {
-            return totalRow;
-        } else {
-            return totalRow - ((getTotalPage() - 1) * pageNum);
-        }
+        return row.size();
     }
 
     public boolean isFirstPage() {

@@ -33,6 +33,7 @@ public class ArticleDao {
             int[] limit = new int[]{(page - 1) * pageNum, pageNum};
             MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
             mysqlBaseContorManager.setLimit(limit);
+            mysqlBaseContorManager.setOrder(new String[]{"id", "DESC"});
             mysqlBaseContorManager.setPrefix(true);
             ArrayList<String[]> where = new ArrayList<>();
             if (type != 0) {
@@ -89,6 +90,7 @@ public class ArticleDao {
             mysqlBaseContorManager.setWhere(where);
             ArrayList<String[]> conjunctiveRelation = new ArrayList<>();
             conjunctiveRelation.add(new String[]{pre + "article.categoryID", pre + "category.id"});
+            mysqlBaseContorManager.setOrder(new String[]{"id", "DESC"});
             mysqlBaseContorManager.setConjunctiveRelation(conjunctiveRelation);
             mysqlBaseContorManager.setConjunctiveTable(new String[]{"article", "category"});
             mysqlBaseContorManager.setTableKey(new String[]{

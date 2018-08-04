@@ -71,8 +71,10 @@ function client() {
                 url: "https://api.github.com/users/liaozixu/events",
                 success: function (res) {
                 //    github
+                    console.log(res)
                 }
             });
         };
+        loadGithubEvents();
     }
 }

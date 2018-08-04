@@ -9,4 +9,9 @@ public class UrlUtils {
     public static String articleDetail(String categoryAlias, String articleAlias) {
         return webURL + "/article/" + categoryAlias + "/" + articleAlias + ".html";
     }
+
+    public static String categoryList(String articleAlias) {
+        return webURL + "/category/" + articleAlias + "/index.html";
+    }
+
 }

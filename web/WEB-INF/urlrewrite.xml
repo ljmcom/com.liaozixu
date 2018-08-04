@@ -8,4 +8,8 @@
         <from>^/article/(.+)/(.+).html$</from>
         <to>/do/article/detail?categoryAlias=$1&amp;articleAlias=$2&amp;url=$0</to>
     </rule>
+    <rule>
+        <from>^/page-(.+).html$</from>
+        <to>/index?page=$1&amp;url=$0</to>
+    </rule>
 </urlrewrite>

@@ -138,33 +138,34 @@ public class MysqlBaseContorManager {
     }
 
     public int count() {
-    	
-    	ArrayList<HashMap<String, String>>  list = select(true, false);
-    	if(list == null || list.size() == 0) {
-    		return 0;
-    	}
-        HashMap<String, String> selectMap = list.get(0);
-        StringBuilder key = new StringBuilder().append("COUNT( ");
-        if (this.tableKey != null) {
-            key.append(tableKeyFormat());
-        } else {
-            key.append("* ");
+
+        ArrayList<HashMap<String, String>> list = select(true, false);
+        if (list == null || list.size() == 0) {
+            return 0;
         }
+        HashMap<String, String> selectMap = list.get(0);
+        System.out.print(selectMap);
+        StringBuilder key = new StringBuilder().append("COUNT( ");
+//        if (this.tableKey != null) {
+//            key.append(tableKeyFormat());
+//        } else {
+        key.append("* ");
+//        }
         key.append(")");
         if (selectMap.get(key.toString()) != null) {
             return Integer.valueOf(selectMap.get(key.toString()));
         } else {
-            return Integer.valueOf(selectMap.get("."+key.toString()));
+            return Integer.valueOf(selectMap.get("." + key.toString()));
         }
     }
 
     public String sum() {
-    	
-    	ArrayList<HashMap<String, String>> list  = select(false, true);
-    	
-    	if(list == null || list.size() == 0) {
-    		return "0";
-    	}
+
+        ArrayList<HashMap<String, String>> list = select(false, true);
+
+        if (list == null || list.size() == 0) {
+            return "0";
+        }
         HashMap<String, String> selectMap = list.get(0);
         StringBuilder key = new StringBuilder().append("SUM( ");
         if (this.tableKey != null) {
@@ -189,7 +190,7 @@ public class MysqlBaseContorManager {
         } else if (sum) {
             sql.append("SUM( ");
         }
-        if (this.tableKey != null) {
+        if (this.tableKey != null && !count && !sum) {
             sql.append(tableKeyFormat());
         } else {
             sql.append("* ");
@@ -230,13 +231,11 @@ public class MysqlBaseContorManager {
                 sql.append(conjunctiveRelation.get(i)[0]).append(" = ").append(conjunctiveRelation.get(i)[1]).append(" ");
             }
         }
-        if (order != null) {
+        if (order != null && !count) {
             sql.append(orderFormat());
         }
-        if (!count) {
-            if (limit != null) {
-                sql.append(limitFormat());
-            }
+        if (limit != null && !count) {
+            sql.append(limitFormat());
         }
 
         try {
@@ -249,16 +248,15 @@ public class MysqlBaseContorManager {
             while (rs.next()) {
                 HashMap<String, String> list = new HashMap<>();
                 for (int i = 1; i <= col; i++) {
-                    if(rs.getObject(i) == null || String.valueOf(rs.getObject(i)).equals("null")){
+                    if (rs.getObject(i) == null || String.valueOf(rs.getObject(i)).equals("null")) {
                         continue;
                     }
                     String keyNamePre = "";
                     if (conjunctiveTable != null) {
                         keyNamePre = rsmd.getTableName(i) + ".";
                     }
-//                    System.out.println(keyNamePre);
-                    if(keyNamePre.equals("null.")) {
-                    	keyNamePre = "";
+                    if (keyNamePre.equals("null.")) {
+                        keyNamePre = "";
                     }
                     list.put(keyNamePre + rsmd.getColumnName(i), String.valueOf(rs.getObject(i)));
                 }
@@ -268,6 +266,8 @@ public class MysqlBaseContorManager {
             ps.close();
             return query;
         } catch (Exception e) {
+            System.out.print(sql);
+            System.out.print(e.getMessage());
             return null;
         } finally {
             MysqlConnPoolManager.closeConn(conn);

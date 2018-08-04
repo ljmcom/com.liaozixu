@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+    http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+    <description>翻页标签库</description>
+    <tlib-version>1.0</tlib-version>
+    <short-name>cpi</short-name>
+    <uri>http://liaozixu.com/tld/cpi</uri>
+    <tag>
+        <name>show</name>
+        <tag-class>com.liaozixu.tld.ClientPagingTld</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>page</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxBtn</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>isFirstPageJsFunc</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>isEndPageJsFunc</name>
+            <required>true</required>
+        </attribute>
+    </tag>
+</taglib>

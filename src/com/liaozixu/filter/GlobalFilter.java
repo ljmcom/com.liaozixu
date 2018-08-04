@@ -15,10 +15,10 @@ public class GlobalFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletResponse response = (HttpServletResponse) resp;
-        HttpServletRequest request = (HttpServletRequest) req;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        response.setHeader("Version","liaozixu.blogcms.1.0");
         req.setAttribute("webUrl", new Config().get("webURL"));
         req.setCharacterEncoding("UTF-8");
         chain.doFilter(req, resp);

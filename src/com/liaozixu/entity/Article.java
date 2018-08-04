@@ -167,6 +167,10 @@ public class Article {
         return UrlUtils.articleDetail(categoryAlias,alias);
     }
 
+    public String getCategoryUrl(){
+        return UrlUtils.categoryList(categoryAlias);
+    }
+
     public String toString() {
         return "Article{" +
                 "id=" + id +
@@ -186,6 +190,7 @@ public class Article {
                 ", categoryAlias='" + categoryAlias + '\'' +
                 ", categoryKeywords='" + categoryKeywords + '\'' +
                 ", categoryDescription='" + categoryDescription + '\'' +
+                ", categoryUrl='" + getCategoryUrl() + '\'' +
                 ", getUrl='" + getUrl() + '\'' +
                 '}';
     }
