@@ -19,10 +19,8 @@ public class GsonUtils {
         Gson gson = new Gson();
         try {
             String toJson = gson.toJson(list);
-            gson = null;
             return toJson;
         } catch (Exception e) {
-            gson = null;
             return null;
         }
     }
@@ -30,7 +28,7 @@ public class GsonUtils {
     /***
      * 解析json
      * @param json 字符串
-     * @return HashMap<String,String>
+     * @return HashMap<String , String>
      */
     public static HashMap<String, String> jsonToHashMapString(String json) {
         if (json == null) return null;
@@ -38,9 +36,7 @@ public class GsonUtils {
         try {
             Type jsonType = new com.google.gson.reflect.TypeToken<HashMap<String, String>>() {
             }.getType();
-            HashMap<String, String> list = gson.fromJson(json, jsonType);
-            gson = null;
-            return list;
+            return gson.fromJson(json, jsonType);
         } catch (Exception e) {
             return null;
         }
@@ -53,10 +49,8 @@ public class GsonUtils {
         if (json == null) return null;
         Gson gson = new Gson();
         try {
-            ArrayList list = gson.fromJson(json, new com.google.gson.reflect.TypeToken<ArrayList>() {
+            return gson.fromJson(json, new com.google.gson.reflect.TypeToken<ArrayList>() {
             }.getType());
-            gson = null;
-            return list;
         } catch (Exception e) {
             return null;
         }
@@ -65,7 +59,7 @@ public class GsonUtils {
     /***
      * 解析json
      * @param json 字符串
-     * @return HashMap<String,Object>
+     * @return HashMap<String , Object>
      */
     public static HashMap<String, Object> jsonToHashMapObject(String json) {
         if (json == null || json.equals("")) return null;
@@ -73,9 +67,7 @@ public class GsonUtils {
         try {
             Type jsonType = new com.google.gson.reflect.TypeToken<HashMap<String, Object>>() {
             }.getType();
-            HashMap<String, Object> list = gson.fromJson(json, jsonType);
-            gson = null;
-            return list;
+            return gson.fromJson(json, jsonType);
         } catch (Exception e) {
             return null;
         }
@@ -86,7 +78,7 @@ public class GsonUtils {
      * @param json 字符串
      * @return ArrayList<Hashmap>
      */
-    public static ArrayList<HashMap<String, String>> jsonToArraylistHashMap(String json) {
+    public static ArrayList<HashMap<String, String>> jsonToArraylistHashMapString(String json) {
         if (json == null) {
             return null;
         }
@@ -94,13 +86,30 @@ public class GsonUtils {
         try {
             Type jsonType = new com.google.gson.reflect.TypeToken<ArrayList<HashMap<String, String>>>() {
             }.getType();
-            ArrayList list = gson.fromJson(json, jsonType);
-            gson = null;
-            return list;
+            return gson.fromJson(json, jsonType);
         } catch (Exception e) {
             return null;
         }
     }
-    
-    
+
+    /***
+     * 解析json
+     * @param json 字符串
+     * @return ArrayList<String>
+     */
+    public static ArrayList<String> jsonToArraylistString(String json) {
+        if (json == null) {
+            return null;
+        }
+        Gson gson = new Gson();
+        try {
+            Type jsonType = new com.google.gson.reflect.TypeToken<ArrayList<String>>() {
+            }.getType();
+            return gson.fromJson(json, jsonType);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 }

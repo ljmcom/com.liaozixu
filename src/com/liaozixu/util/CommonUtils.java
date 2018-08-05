@@ -251,17 +251,4 @@ public class CommonUtils {
 		return (new Date().getTime() + CommonUtils.generateUUID()).substring(0,32);
 	}
 	
-//	实体转map
-	public static HashMap<String, String> entityToMapString(Object entity){
-		String jsonStr = GsonUtils.toJson(entity);
-		HashMap<String, String> jsonMap = GsonUtils.jsonToHashMapString(jsonStr);
-		HashMap<String, String> tempMap = new HashMap<>();
-		for(Map.Entry<String, String> entry : jsonMap.entrySet()){
-			if(entry.getValue() != null && !entry.getValue().equals("null")) {
-				tempMap.put(entry.getKey(), entry.getValue());
-			}
-		}
-		return tempMap;
-	}
-	
 }

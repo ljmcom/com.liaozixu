@@ -34,7 +34,7 @@ public class ArticleDao {
         if (categoryAlias != null) {
             redisKey = redisKey + ";categoryAlias=" + categoryAlias;
         }
-        ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMap(RedisOperationManager.getString(redisKey));
+        ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMapString(RedisOperationManager.getString(redisKey));
         int totalRow = 0;
         if (row == null) {
             int[] limit = new int[]{(page - 1) * pageNum, pageNum};

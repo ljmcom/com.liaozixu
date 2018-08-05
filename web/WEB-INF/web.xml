@@ -34,4 +34,24 @@
         <url-pattern>/api</url-pattern>
         <url-pattern>/api/*</url-pattern>
     </filter-mapping>
+    <!-- api admin 大拦截器 -->
+    <filter>
+        <filter-name>ApiAdminFilter</filter-name>
+        <filter-class>com.liaozixu.filter.ApiAdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ApiAdminFilter</filter-name>
+        <url-pattern>/api/admin</url-pattern>
+        <url-pattern>/api/admin/*</url-pattern>
+    </filter-mapping>
+    <!-- admin web 拦截器 -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.liaozixu.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 </web-app>

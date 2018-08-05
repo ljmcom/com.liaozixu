@@ -25,7 +25,7 @@ public class CategoryDao {
         if (type != 0) {
             redisKey = redisKey + ";type=" + type;
         }
-        ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMap(RedisOperationManager.getString(redisKey));
+        ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMapString(RedisOperationManager.getString(redisKey));
         int totalRow;
         if (row == null) {
             int[] limit = new int[]{(page - 1) * pageNum, pageNum};
@@ -65,7 +65,7 @@ public class CategoryDao {
         return list;
     }
 
-    public static Category toEntity(HashMap<String,String> item){
+    private static Category toEntity(HashMap<String, String> item){
         Category category = new Category();
         category.setAlias(item.get("alias"));
         category.setDescription(item.get("description"));

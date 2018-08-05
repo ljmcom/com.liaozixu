@@ -75,6 +75,15 @@ public class GatewayUtils {
             case 100007:
                 errText = "认证失败";
                 break;
+            case 100008:
+                errText = "用户不存在";
+                break;
+            case 100009:
+                errText = "安全码或密码不正确";
+                break;
+            case 100010:
+                errText = "安全码或密码不正确";
+                break;
             default:
                 errText = String.valueOf(errCode);
         }

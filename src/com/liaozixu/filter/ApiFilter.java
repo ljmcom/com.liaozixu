@@ -32,13 +32,13 @@ public class ApiFilter implements Filter {
             GatewayUtils.showJson(false, 100003, null, response);
             return;
         }
-        HashMap<String, Object> postMap = GsonUtils.jsonToHashMapObject(ServletUtils.requestString(request));
+        HashMap<String, String> postMap = GsonUtils.jsonToHashMapString(ServletUtils.requestString(request));
         if (postMap == null) {
             GatewayUtils.showJson(false, 100004, null, response);
             return;
         }
         Config config = new Config();
-        if(postMap.get("authKey") == null || !postMap.get("authKey").toString().equals(config.get("authKey"))){
+        if (postMap.get("authKey") == null || !postMap.get("authKey").toString().equals(config.get("authKey"))) {
             GatewayUtils.showJson(false, 100007, null, response);
             return;
         }
