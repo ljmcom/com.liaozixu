@@ -26,7 +26,7 @@ public class CategoryDao {
             redisKey = redisKey + ";type=" + type;
         }
         ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMap(RedisOperationManager.getString(redisKey));
-        int totalRow = 0;
+        int totalRow;
         if (row == null) {
             int[] limit = new int[]{(page - 1) * pageNum, pageNum};
             MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();

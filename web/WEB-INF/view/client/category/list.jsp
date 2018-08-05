@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: liaozixu
   Date: 2018/8/3
-  Time: 9:47
+  Time: 10:56
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="false" %>
@@ -14,31 +14,17 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test="${articleList.nowPage == 1}">
-    ${aboutMeResume}
-</c:if>
-<br>
-<%--文章开始--%>
-<c:forEach items="${articleList.row}" var="item">
+<c:forEach items="${categoryList.row}" var="item">
     <p>----</p>
     <a href="${item.url}">
-        <p>${item.id}</p>
         <p>${item.title}</p>
     </a>
     <p>${item.description}</p>
-    <p>${item.postTime}</p>
-    <a href="${item.categoryUrl}">
-        <p>${item.categoryTitle}</p>
-    </a>
     <p>----</p>
 </c:forEach>
-<%--分页--%>
-<cpi:show page="${articleList}" isEndPageJsFunc="abc" isFirstPageJsFunc="cba" maxBtn="10"/>
+
+
+<cpi:show page="${categoryList}" isEndPageJsFunc="abc" isFirstPageJsFunc="cba" maxBtn="10"/>
+
 </body>
 </html>
-<script src="${webUrl}/static/script.js"></script>
-<script>
-    var authKey = '${authKey}';
-    var client = new client();
-    client.index();
-</script>

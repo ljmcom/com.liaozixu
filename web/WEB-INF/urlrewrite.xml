@@ -1,7 +1,6 @@
 <urlrewrite>
     <rule>
         <from>^/index.html$</from>
-        <from>^/index.jsp$</from>
         <to>/index</to>
     </rule>
     <rule>
@@ -9,7 +8,23 @@
         <to>/do/article/detail?categoryAlias=$1&amp;articleAlias=$2&amp;url=$0</to>
     </rule>
     <rule>
-        <from>^/page-(.+).html$</from>
+        <from>^/page-([0-9]+).html$</from>
         <to>/index?page=$1&amp;url=$0</to>
+    </rule>
+    <rule>
+        <from>^/category/index.html$</from>
+        <to>/do/category/list?page=1&amp;url=$0</to>
+    </rule>
+    <rule>
+        <from>^/category/page-([0-9]+).html$</from>
+        <to>/do/category/list?page=1&amp;url=$0</to>
+    </rule>
+    <rule>
+        <from>^/category/(.+)/index.html$</from>
+        <to>/do/category/article/list?categoryAlias=$1&amp;page=1&amp;url=$0</to>
+    </rule>
+    <rule>
+        <from>^/category/(.+)/page-([0-9]+).html$</from>
+        <to>/do/category/article/list?categoryAlias=$1&amp;page=1&amp;url=$0</to>
     </rule>
 </urlrewrite>

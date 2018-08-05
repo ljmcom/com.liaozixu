@@ -14,9 +14,6 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test="${articleList.nowPage == 1}">
-    ${aboutMeResume}
-</c:if>
 <br>
 <%--文章开始--%>
 <c:forEach items="${articleList.row}" var="item">
@@ -37,8 +34,3 @@
 </body>
 </html>
 <script src="${webUrl}/static/script.js"></script>
-<script>
-    var authKey = '${authKey}';
-    var client = new client();
-    client.index();
-</script>

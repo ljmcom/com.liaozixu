@@ -43,7 +43,7 @@ public class ServletUtils {
         pw.flush();
         pw.close();
     }
-    
+
     /***
      * 获得cookies
      * @param request request
@@ -63,6 +63,7 @@ public class ServletUtils {
         }
         return cookieData;
     }
+
     /***
      * 获得客户端地址
      * @param r request
@@ -87,5 +88,21 @@ public class ServletUtils {
             ip = r.getRemoteAddr();
         }
         return ip;
+    }
+
+    public static int pageCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pageNum = 1;
+        if (request.getParameter("page") != null) {
+            if (!CommonUtils.checkRoundNum(request.getParameter("page"))) {
+                GatewayUtils.showJson(false, 100001, null, response);
+                return 0;
+            }
+            pageNum = Integer.parseInt(request.getParameter("page"));
+            if (pageNum == 0) {
+                GatewayUtils.showJson(false, 100001, null, response);
+                return 0;
+            }
+        }
+        return pageNum;
     }
 }

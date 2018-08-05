@@ -1,3 +1,18 @@
+/**
+ * @return {boolean}
+ */
+function IEVersion() {
+    var userAgent = navigator.userAgent;
+    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
+    var isEdge = userAgent.indexOf("Edge") > -1 && !isIE;
+    var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+    return (isIE || isEdge || isIE11);
+}
+
+if (IEVersion()) {
+    window.location.href = "/isie.jsp";
+}
+
 function httpRequest(obj) {
     if (obj.error === undefined) {
         obj.error = function () {
@@ -7,15 +22,10 @@ function httpRequest(obj) {
         obj.success = function () {
         };
     }
-    if (obj.type === undefined) {
-        obj.type = "GET";
-    }
     if (obj.data === undefined) {
-        obj.data = null;
+        obj.data = {};
     }
-    if (obj.data === undefined) {
-        obj.data = null;
-    }
+    obj.data.authKey = authKey;
     if (obj.complete === undefined) {
         obj.complete = function () {
         };
@@ -30,8 +40,8 @@ function httpRequest(obj) {
     } else {
         httpRequestObj = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    httpRequestObj.open(obj.type, obj.url);
-    httpRequestObj.send(obj.data);
+    httpRequestObj.open("POST", obj.url);
+    httpRequestObj.send(JSON.stringify(obj.data));
     httpRequestObj.onreadystatechange = function () {
         if (httpRequestObj.readyState === 4 && httpRequestObj.status === 200) {
             var data = httpRequestObj.responseText;
@@ -48,9 +58,11 @@ function convertUTCTimeToLocalTime(UTCDateString) {
     if (!UTCDateString) {
         return '-';
     }
+
     function formatFunc(str) {
         return str > 9 ? str : '0' + str
     }
+
     var date2 = new Date(UTCDateString);
     var year = date2.getFullYear();
     var mon = formatFunc(date2.getMonth() + 1);
@@ -66,12 +78,17 @@ function convertUTCTimeToLocalTime(UTCDateString) {
 function client() {
     client.prototype.index = function () {
         //    首页需处理github事件
-        var loadGithubEvents = function(){
+        var loadGithubEvents = function () {
             httpRequest({
-                url: "https://api.github.com/users/liaozixu/events",
+                url: "/api/github/getEvents",
                 success: function (res) {
-                //    github
                     console.log(res)
+                },
+                error: function () {
+
+                },
+                complete: function () {
+
                 }
             });
         };

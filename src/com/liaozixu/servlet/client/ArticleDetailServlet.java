@@ -24,6 +24,6 @@ public class ArticleDetailServlet extends HttpServlet {
             return;
         }
         request.setAttribute("details", details);
-        request.getRequestDispatcher("/WEB-INF/view/client/articleDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/client/article/detail.jsp").forward(request, response);
     }
 }

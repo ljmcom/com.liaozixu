@@ -1,5 +1,7 @@
 package com.liaozixu.entity;
 
+import com.liaozixu.util.UrlUtils;
+
 public class Category {
     private int id;
     private String title;
@@ -54,5 +56,21 @@ public class Category {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getUrl(){
+        return UrlUtils.categoryList(alias);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", alias='" + alias + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

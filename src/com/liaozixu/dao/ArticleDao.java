@@ -20,12 +20,19 @@ public class ArticleDao {
     private static int pageNum = Integer.parseInt(config.get("pageNum"));
 
     public static Page<Article> getList(int page, int type) {
+        return getList(page, type, null);
+    }
+
+    public static Page<Article> getList(int page, int type, String categoryAlias) {
         if (page == 0) {
             return null;
         }
         String redisKey = "article_get_list_dao:page=" + page;
         if (type != 0) {
             redisKey = redisKey + ";type=" + type;
+        }
+        if (categoryAlias != null) {
+            redisKey = redisKey + ";categoryAlias=" + categoryAlias;
         }
         ArrayList<HashMap<String, String>> row = GsonUtils.jsonToArraylistHashMap(RedisOperationManager.getString(redisKey));
         int totalRow = 0;
@@ -38,6 +45,9 @@ public class ArticleDao {
             ArrayList<String[]> where = new ArrayList<>();
             if (type != 0) {
                 where.add(new String[]{pre + "article.type", "=", String.valueOf(type)});
+            }
+            if (categoryAlias != null) {
+                where.add(new String[]{pre + "category.alias", "=", categoryAlias});
             }
             mysqlBaseContorManager.setWhere(where);
             ArrayList<String[]> conjunctiveRelation = new ArrayList<>();
@@ -80,13 +90,13 @@ public class ArticleDao {
 
     public static Article details(String categoryAlias, String articleAlias) {
         String redisKey = "article_get_list_dao:categoryAlias=" + categoryAlias + ";articleAlias=" + articleAlias;
-        HashMap<String,String> item = RedisOperationManager.getMap(redisKey);
-        if(item == null){
+        HashMap<String, String> item = RedisOperationManager.getMap(redisKey);
+        if (item == null) {
             MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
             mysqlBaseContorManager.setPrefix(true);
             ArrayList<String[]> where = new ArrayList<>();
-            where.add(new String[]{pre+"category.alias","=",categoryAlias});
-            where.add(new String[]{pre+"article.alias","=",articleAlias});
+            where.add(new String[]{pre + "category.alias", "=", categoryAlias});
+            where.add(new String[]{pre + "article.alias", "=", articleAlias});
             mysqlBaseContorManager.setWhere(where);
             ArrayList<String[]> conjunctiveRelation = new ArrayList<>();
             conjunctiveRelation.add(new String[]{pre + "article.categoryID", pre + "category.id"});
@@ -112,12 +122,12 @@ public class ArticleDao {
                     pre + "category.description",
                     pre + "category.type"
             });
-            ArrayList<HashMap<String,String>> row = mysqlBaseContorManager.select();
-            if(row == null || row.size() == 0){
+            ArrayList<HashMap<String, String>> row = mysqlBaseContorManager.select();
+            if (row == null || row.size() == 0) {
                 return null;
             }
             item = row.get(0);
-            if(!RedisOperationManager.setMap(redisKey,item,expires)){
+            if (!RedisOperationManager.setMap(redisKey, item, expires)) {
                 return null;
             }
         }
@@ -180,7 +190,7 @@ public class ArticleDao {
             article.setCategoryAlias(item.get(pre + "category.alias"));
         }
         if (item.get(pre + "category.keywords") != null) {
-            article.setCategoryKeywords(item.get(item.get(pre + "category.keywords")));
+            article.setCategoryKeywords(item.get(pre + "category.keywords"));
         }
         if (item.get(pre + "category.description") != null) {
             article.setCategoryDescription(item.get(pre + "category.description"));

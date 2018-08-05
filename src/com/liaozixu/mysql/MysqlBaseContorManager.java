@@ -144,7 +144,6 @@ public class MysqlBaseContorManager {
             return 0;
         }
         HashMap<String, String> selectMap = list.get(0);
-        System.out.print(selectMap);
         StringBuilder key = new StringBuilder().append("COUNT( ");
 //        if (this.tableKey != null) {
 //            key.append(tableKeyFormat());
@@ -266,8 +265,6 @@ public class MysqlBaseContorManager {
             ps.close();
             return query;
         } catch (Exception e) {
-            System.out.print(sql);
-            System.out.print(e.getMessage());
             return null;
         } finally {
             MysqlConnPoolManager.closeConn(conn);
