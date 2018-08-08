@@ -7,26 +7,47 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:choose>
-    <c:when test="${clientPagingAttr.isFirstPage}">
-        <li><a href="javascript:${clientPagingAttr.isFirstPageJsFunc}();">上一页</a></li>
-    </c:when>
-    <c:otherwise>
-        <li><a href="page-${clientPagingAttr.nowPage-1}.html">上一页</a></li>
-    </c:otherwise>
-</c:choose>
-
-
-<c:forEach var="x" begin="0" end="${clientPagingAttr.renderingBtn -1}">
-    <li><a href="page-${clientPagingAttr.startNum+x}.html">${clientPagingAttr.startNum+x}</a>${(clientPagingAttr.nowPage == (clientPagingAttr.startNum+x) ? "当前页" : "")}</li>
-</c:forEach>
-
-
-<c:choose>
-    <c:when test="${clientPagingAttr.isEndPage}">
-        <li><a href="javascript:${clientPagingAttr.isEndPageJsFunc}();">下一页</a></li>
-    </c:when>
-    <c:otherwise>
-        <li><a href="page-${clientPagingAttr.nowPage+1}.html">下一页</a></li>
-    </c:otherwise>
-</c:choose>
+<div class="pageBox grid_Bg partBomMg">
+    <div class="pageList row justifyCenter">
+        <ul>
+            <c:choose>
+                <c:when test="${clientPagingAttr.isFirstPage}">
+                    <a href="javascript:${clientPagingAttr.isFirstPageJsFunc}();">
+                        <li>上一页</li>
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="page-${clientPagingAttr.nowPage-1}.html">
+                        <li>上一页</li>
+                    </a>
+                </c:otherwise>
+            </c:choose>
+            <c:forEach var="x" begin="0" end="${clientPagingAttr.renderingBtn -1}">
+                <c:choose>
+                <c:when test="${(clientPagingAttr.nowPage == (clientPagingAttr.startNum+x))}">
+                    <a href="page-${clientPagingAttr.startNum+x}.html" class="select">
+                        <li>${clientPagingAttr.startNum+x}</li>
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="page-${clientPagingAttr.startNum+x}.html">
+                        <li>${clientPagingAttr.startNum+x}</li>
+                    </a>
+                </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:choose>
+                <c:when test="${clientPagingAttr.isEndPage}">
+                        <a href="javascript:${clientPagingAttr.isEndPageJsFunc}();">
+                            <li>下一页</li>
+                        </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="page-${clientPagingAttr.nowPage+1}.html">
+                        <li>下一页</li>
+                    </a>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
+</div>

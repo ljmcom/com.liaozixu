@@ -2,6 +2,7 @@ package com.liaozixu.servlet.client;
 
 import com.liaozixu.dao.ArticleDao;
 import com.liaozixu.entity.Article;
+import com.liaozixu.system.Config;
 import com.liaozixu.util.GatewayUtils;
 
 import javax.servlet.ServletException;
@@ -22,14 +23,17 @@ public class ArticleDetailServlet extends HttpServlet {
         String categoryAlias = request.getParameter("categoryAlias");
         String articleAlias = request.getParameter("articleAlias");
         Article details = ArticleDao.details(categoryAlias, articleAlias);
-        if (details == null) {
+        if (details == null || Objects.requireNonNull(details).getType() != 1) {
+            request.getRequestDispatcher("/WEB-INF/view/client/404.jsp").forward(request, response);
             return;
         }
-        if (Objects.requireNonNull(details).getType() != 1) {
-//            该文章不公开
-            return;
-        }
+        Config config = new Config();
         request.setAttribute("details", details);
+        request.setAttribute("title", details.getTitle() + "-" + config.get("title"));
+        request.setAttribute("keywords", details.getKeywords());
+        request.setAttribute("description", details.getDescription());
+        request.setAttribute("nextArticle", ArticleDao.indexViSummarize(details.getId(), 1, 1));
+        request.setAttribute("previousArticle", ArticleDao.indexViSummarize(details.getId(), -1, 1));
         request.getRequestDispatcher("/WEB-INF/view/client/article/detail.jsp").forward(request, response);
     }
 }

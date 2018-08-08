@@ -32,6 +32,7 @@ public class CategoryArticleListServlet extends HttpServlet {
         }
         if(articleList.getRow().size() == 0){
 //            该分类下没有文章
+
             return;
         }
         request.setAttribute("articleList", articleList);

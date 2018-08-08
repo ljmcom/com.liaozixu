@@ -9,22 +9,28 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="cpi" uri="http://liaozixu.com/tld/cpi" %>
 <%@include file="/WEB-INF/view/client/header.jsp"%>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<c:forEach items="${categoryList.row}" var="item">
-    <p>----</p>
-    <a href="${item.url}">
-        <p>${item.title}</p>
-    </a>
-    <p>${item.description}</p>
-    <p>----</p>
-</c:forEach>
-
-
-<cpi:show page="${categoryList}" isEndPageJsFunc="abc" isFirstPageJsFunc="cba" maxBtn="10"/>
-
-</body>
-</html>
+<section class="main centreGrid">
+    <div class="classifyBg grid_Bg partBomMg grid_pd partTopMg">
+        <div class="titleBox">
+            <i class="iconfont icon-headline"></i>
+            <span>Category</span>
+        </div>
+        <div class="classifyBox">
+        <c:forEach items="${categoryList.row}" var="item">
+            <div class="classifyList row">
+                <i></i>
+                <a href="${item.url}">${item.title}</a>
+            </div>
+        </c:forEach>
+        </div>
+        <cpi:show page="${categoryList}" isEndPageJsFunc="isEndPage" isFirstPageJsFunc="isFirstPage" maxBtn="10"/>
+    </div>
+</section>
+<%@include file="/WEB-INF/view/client/footer.jsp"%>
+<script src="${webUrl}/static/script.js"></script>
+<script>
+    var pageType = "categoryList";
+    var authKey = '${authKey}';
+    var client = new client();
+    client.category();
+</script>

@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>isie</title>
 </head>
 <body>
-
+<script>
+    alert("本站不支持ie浏览器访问，请使用现代浏览器访问！");
+</script>
 </body>
 </html>

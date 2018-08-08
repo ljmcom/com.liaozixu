@@ -17,7 +17,7 @@ public class RedisOperationManager {
             return false;
         }
         try {
-            jedis.del(pre+key);
+            jedis.del(pre + key);
             return true;
         } catch (Exception e) {
             return false;
@@ -32,7 +32,7 @@ public class RedisOperationManager {
             return false;
         }
         try {
-            jedis.expire(pre+key, expires);
+            jedis.expire(key, expires);
             return true;
         } catch (Exception e) {
             return false;
@@ -48,7 +48,7 @@ public class RedisOperationManager {
             return 0;
         }
         try {
-            return Math.toIntExact(jedis.ttl(pre+key));
+            return Math.toIntExact(jedis.ttl(pre + key));
         } catch (Exception e) {
             return 0;
         } finally {
@@ -62,9 +62,9 @@ public class RedisOperationManager {
             return false;
         }
         try {
-            jedis.set(pre+key, value);
+            jedis.set(pre + key, value);
             if (expires > 0) {
-                setExpire(pre+key, expires);
+                setExpire(pre + key, expires);
             }
             return true;
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class RedisOperationManager {
             return null;
         }
         try {
-            return jedis.get(pre+key);
+            return jedis.get(pre + key);
         } catch (Exception e) {
             return null;
         } finally {
@@ -96,9 +96,9 @@ public class RedisOperationManager {
             return false;
         }
         try {
-            jedis.hmset(pre+key, data);
+            jedis.hmset(pre + key, data);
             if (expires > 0) {
-                setExpire(pre+key, expires);
+                setExpire(pre + key, expires);
             }
             return true;
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class RedisOperationManager {
             return null;
         }
         try {
-            HashMap data = (HashMap) jedis.hgetAll(pre+key);
+            HashMap data = (HashMap) jedis.hgetAll(pre + key);
             if (data.size() == 0) {
                 return null;
             }
@@ -137,7 +137,7 @@ public class RedisOperationManager {
             return false;
         }
         try {
-            Set<String> set = jedis.keys(pre+ key + "*");
+            Set<String> set = jedis.keys(pre + key + "*");
             for (String keyStr : set) {
                 jedis.del(keyStr);
             }

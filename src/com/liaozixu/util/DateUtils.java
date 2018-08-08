@@ -92,6 +92,19 @@ public class DateUtils {
     	String dateString = formatter.format(dateDate);
     	return dateString;
     }
+
+    public static String dateToStrYear(Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+
+    public static String dateToStrMonth(Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+
     
     public static Date strToDateLong(String strDate) {
     	 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

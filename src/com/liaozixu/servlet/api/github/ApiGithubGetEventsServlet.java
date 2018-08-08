@@ -45,8 +45,10 @@ public class ApiGithubGetEventsServlet extends HttpServlet {
                 temp.put("repo", item.get("repo"));
                 if (item.get("type").equals("PushEvent")) {
                     temp.put("message", ((ArrayList<LinkedTreeMap>) ((LinkedTreeMap) item.get("payload")).get("commits")).get(0).get("message"));
-                } else {
+                } else if(item.get("type").equals("CreateEvent")){
                     temp.put("message", ((LinkedTreeMap) item.get("payload")).get("description"));
+                }else{
+                    continue;
                 }
                 row.add(temp);
             }

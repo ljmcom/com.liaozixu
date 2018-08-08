@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ClientIndexServlet", urlPatterns = {"/index","/index.jsp"})
+@WebServlet(name = "ClientIndexServlet", urlPatterns = {"/index", "/index.jsp"})
 public class ClientIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pageNum = ServletUtils.pageCheck(request, response);
         if (pageNum == 0) {
+            request.getRequestDispatcher("/WEB-INF/view/client/404.jsp").forward(request, response);
             return;
         }
         Config config = new Config();
@@ -29,8 +30,15 @@ public class ClientIndexServlet extends HttpServlet {
             return;
         }
         if (articleList.getNowPageCount() == 0) {
+            request.getRequestDispatcher("/WEB-INF/view/client/404.jsp").forward(request, response);
             return;
         }
+        request.setAttribute("title", config.get("webTitle"));
+        if (pageNum != 1) {
+            request.setAttribute("title", config.get("webTitle") + "-第" + pageNum + "页");
+        }
+        request.setAttribute("keywords", config.get("webKeywords"));
+        request.setAttribute("description", config.get("webDescription"));
         request.setAttribute("articleList", articleList);
         request.getRequestDispatcher("/WEB-INF/view/client/index.jsp").forward(request, response);
     }
