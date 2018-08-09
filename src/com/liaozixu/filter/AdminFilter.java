@@ -1,5 +1,7 @@
 package com.liaozixu.filter;
 
+import com.liaozixu.dao.AdminUserDao;
+import com.liaozixu.entity.AdminUser;
 import com.liaozixu.redis.RedisOperationManager;
 import com.liaozixu.system.Config;
 import com.liaozixu.util.CommonUtils;
@@ -46,6 +48,8 @@ public class AdminFilter implements Filter {
             response.sendRedirect("/admin/login");
             return;
         }
+        AdminUser adminUser = AdminUserDao.toEntity(adminUserMap);
+        req.setAttribute("adminUser", adminUser);
         chain.doFilter(req, resp);
     }
 

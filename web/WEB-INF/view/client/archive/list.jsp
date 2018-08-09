@@ -42,7 +42,7 @@
                 </c:if>
                 <c:if test="${DateUtils.dateToStrYear(item.postTime) == year && DateUtils.dateToStrMonth(item.postTime) == month}">
                     <li class="row">
-                        <span>${DateUtils.dateToStr(item.postTime)}</span>
+                        <a href="${item.url}"><span>${DateUtils.dateToStr(item.postTime)}</span></a>
                         <p>${item.title}</p>
                     </li>
                 </c:if>

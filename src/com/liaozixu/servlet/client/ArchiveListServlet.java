@@ -19,7 +19,6 @@ public class ArchiveListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pageNum = ServletUtils.pageCheck(request, response);
         if (pageNum == 0) {
-            request.getRequestDispatcher("/WEB-INF/view/client/404.jsp").forward(request, response);
             return;
         }
         Page<Article> articleList = ArticleDao.getList(pageNum, 1);

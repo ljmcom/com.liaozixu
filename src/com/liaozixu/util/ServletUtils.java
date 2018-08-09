@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -98,6 +99,23 @@ public class ServletUtils {
                 return 0;
             }
             pageNum = Integer.parseInt(request.getParameter("page"));
+            if (pageNum == 0) {
+                GatewayUtils.showJson(false, 100001, null, response);
+                return 0;
+            }
+        }
+        return pageNum;
+    }
+
+
+    public static int pageCheckGateway(HashMap<String, String> postMap, HttpServletResponse response) throws IOException {
+        int pageNum = 1;
+        if (postMap.get("page") != null) {
+            if (!CommonUtils.checkRoundNum(postMap.get("page"))) {
+                GatewayUtils.showJson(false, 100001, null, response);
+                return 0;
+            }
+            pageNum = Integer.parseInt(postMap.get("page"));
             if (pageNum == 0) {
                 GatewayUtils.showJson(false, 100001, null, response);
                 return 0;

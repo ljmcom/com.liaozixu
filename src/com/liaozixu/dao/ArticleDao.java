@@ -94,7 +94,7 @@ public class ArticleDao {
             redisKey = redisKey + ";type=" + type;
         }
         HashMap<String, String> item = RedisOperationManager.getMap(redisKey);
-        if(item == null){
+        if (item == null) {
             MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
             mysqlBaseContorManager.setPrefix(true);
             ArrayList<String[]> where = new ArrayList<>();
@@ -103,9 +103,9 @@ public class ArticleDao {
             mysqlBaseContorManager.setWhere(where);
             ArrayList<String[]> conjunctiveRelation = new ArrayList<>();
             conjunctiveRelation.add(new String[]{pre + "article.categoryID", pre + "category.id"});
-            if(index > 0){
+            if (index > 0) {
                 mysqlBaseContorManager.setOrder(new String[]{"id", "DESC"});
-            }else{
+            } else {
                 mysqlBaseContorManager.setOrder(new String[]{"id", "ASC"});
             }
             mysqlBaseContorManager.setConjunctiveRelation(conjunctiveRelation);
@@ -176,6 +176,69 @@ public class ArticleDao {
             }
         }
         return toEntity(item);
+    }
+
+    public static boolean save(Article article) {
+        MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
+        mysqlBaseContorManager.setPrefix(true);
+        mysqlBaseContorManager.setTableName("article");
+        HashMap<String, String> insert = new HashMap<>();
+        if (article.getType() != 0) {
+            insert.put("type", String.valueOf(article.getType()));
+        }
+        if (article.getTitle() != null) {
+            insert.put("title", article.getTitle());
+        }
+        if (article.getDescription() != null) {
+            insert.put("description", article.getDescription());
+        }
+        if (article.getContentRaw() != null) {
+            insert.put("contentRaw", article.getContentRaw());
+        }
+        if (article.getContentText() != null) {
+            insert.put("contentText", article.getContentText());
+        }
+        if (article.getIp() != null) {
+            insert.put("ip", article.getIp());
+        }
+        if (article.getPostTime() != null) {
+            insert.put("postTime", DateUtils.dateToStrLong(article.getPostTime()));
+        }
+        if (article.getKeywords() != null) {
+            insert.put("keywords", article.getKeywords());
+        }
+        if (article.getAlias() != null) {
+            insert.put("alias", article.getAlias());
+        }
+        if (article.getCategoryID() != 0) {
+            insert.put("categoryID", String.valueOf(article.getCategoryID()));
+        }
+        if (article.isOriginal()) {
+            insert.put("original", "1");
+        } else {
+            insert.put("original", "0");
+        }
+        mysqlBaseContorManager.setInsert(insert);
+        if (article.getId() != 0) {
+            ArrayList<String[]> where = new ArrayList<>();
+            where.add(new String[]{"id", "=", String.valueOf(article.getId())});
+            mysqlBaseContorManager.setWhere(where);
+            if (!mysqlBaseContorManager.update()) {
+                return false;
+            } else {
+                RedisOperationManager.batchDel("article_get_list_dao");
+                RedisOperationManager.batchDel("article_get_index_list_dao:id=" + article.getId());
+                return true;
+            }
+        } else {
+            if (!mysqlBaseContorManager.insert()) {
+                return false;
+            } else {
+                RedisOperationManager.batchDel("article_get_list_dao");
+                return true;
+            }
+        }
+
     }
 
     private static List<Article> toEntity(ArrayList<HashMap<String, String>> row) {

@@ -29,7 +29,7 @@ public class ArticleDetailServlet extends HttpServlet {
         }
         Config config = new Config();
         request.setAttribute("details", details);
-        request.setAttribute("title", details.getTitle() + "-" + config.get("title"));
+        request.setAttribute("title", details.getTitle() + "-" + config.get("webTitle"));
         request.setAttribute("keywords", details.getKeywords());
         request.setAttribute("description", details.getDescription());
         request.setAttribute("nextArticle", ArticleDao.indexViSummarize(details.getId(), 1, 1));

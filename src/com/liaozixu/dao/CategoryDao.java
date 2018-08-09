@@ -57,6 +57,47 @@ public class CategoryDao {
         return pageArticle;
     }
 
+    public static boolean save(Category category){
+        MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
+        mysqlBaseContorManager.setPrefix(true);
+        mysqlBaseContorManager.setTableName("category");
+        HashMap<String,String> insert = new HashMap<>();
+        if(category.getAlias() != null){
+            insert.put("alias",category.getAlias());
+        }
+        if(category.getDescription() != null){
+            insert.put("description",category.getDescription());
+        }
+        if(category.getKeywords() != null){
+            insert.put("keywords",category.getKeywords());
+        }
+        if(category.getTitle() != null){
+            insert.put("title",category.getTitle());
+        }
+        if(category.getType() != 0){
+            insert.put("type",String.valueOf(category.getType()));
+        }
+        mysqlBaseContorManager.setInsert(insert);
+        if(category.getId() != 0){
+            ArrayList<String[]> where = new ArrayList<>();
+            where.add(new String[]{"id","=",String.valueOf(category.getId())});
+            mysqlBaseContorManager.setWhere(where);
+            if(!mysqlBaseContorManager.update()){
+                return false;
+            }else{
+                RedisOperationManager.batchDel("category_get_list_dao");
+                return true;
+            }
+        }else{
+            if (!mysqlBaseContorManager.insert()) {
+                return false;
+            } else {
+                RedisOperationManager.batchDel("category_get_list_dao");
+                return true;
+            }
+        }
+    }
+
     private static List<Category> toEntity(ArrayList<HashMap<String, String>> row) {
         List<Category> list = new ArrayList<>();
         for (HashMap<String, String> item : row) {
