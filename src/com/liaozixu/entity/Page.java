@@ -7,10 +7,10 @@ public class Page<T> {
     private int nowPage;
     private int pageNum;
     private int totalRow;
-
-    public void setRow(List<T> row) {
-        this.row = row;
-    }
+    private int nowPageCount;
+    private boolean firstPage;
+    private boolean lastPage;
+    private int totalPage;
 
     public List<T> getRow() {
         return row;
@@ -43,25 +43,34 @@ public class Page<T> {
         return totalRow;
     }
 
+    public void setRow(List<T> row) {
+        if (totalRow == 0) {
+            totalPage = 0;
+        } else {
+            totalPage = (totalRow % pageNum == 0) ? (totalRow / pageNum) : ((totalRow / pageNum) + 1);
+        }
+        nowPageCount = row.size();
+        firstPage = nowPage == 1;
+        lastPage = nowPage >= getTotalPage();
+        this.row = row;
+    }
+
     //    获取总页数
     public int getTotalPage() {
-        if (totalRow == 0) {
-            return 0;
-        }
-        return (totalRow % pageNum == 0) ? (totalRow / pageNum) : ((totalRow / pageNum) + 1);
+        return totalPage;
     }
 
     //    获取当前页总条目
     public int getNowPageCount() {
-        return row.size();
+        return nowPageCount;
     }
 
     public boolean isFirstPage() {
-        return nowPage == 1;
+        return firstPage;
     }
 
     public boolean isLastPage() {
-        return nowPage >= getTotalPage();
+        return lastPage;
     }
 
     @Override

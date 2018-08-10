@@ -2,9 +2,7 @@ package com.liaozixu.servlet.api.admin.article;
 
 import com.liaozixu.dao.ArticleDao;
 import com.liaozixu.entity.Article;
-import com.liaozixu.entity.Page;
 import com.liaozixu.util.GatewayUtils;
-import com.liaozixu.util.ServletUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,21 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
-@WebServlet(name = "AdminArticleListServlet", urlPatterns = {"/api/admin/article/list"})
-public class AdminArticleListServlet extends HttpServlet {
+@WebServlet(name = "AdminArticleDetailServlet", urlPatterns = {"/api/admin/article/detail"})
+public class AdminArticleDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         @SuppressWarnings("unchecked")
         HashMap<String, String> postMap = (HashMap<String, String>) request.getAttribute("postMap");
-        int pageNum = ServletUtils.pageCheckGateway(postMap, response);
-        if (pageNum == 0) {
+        if (postMap.get("categoryAlias") == null || postMap.get("articleAlias") == null) {
+            GatewayUtils.showJson(false, 100005, null, response);
             return;
         }
-        Page<Article> articleList = ArticleDao.getList(pageNum, -1);
-        if (articleList == null) {
-            GatewayUtils.showJson(false, 100002, null, response);
+        String categoryAlias = postMap.get("categoryAlias");
+        String articleAlias = postMap.get("articleAlias");
+        Article details = ArticleDao.details(categoryAlias, articleAlias);
+        if (details == null || Objects.requireNonNull(details).getType() == 0) {
+            GatewayUtils.showJson(false, 100011, null, response);
             return;
         }
-        GatewayUtils.showJson(true, 0, articleList, response);
+        GatewayUtils.showJson(true, 0, details, response);
     }
 }

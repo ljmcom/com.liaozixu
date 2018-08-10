@@ -84,6 +84,9 @@ public class GatewayUtils {
             case 100010:
                 errText = "安全码或密码不正确";
                 break;
+            case 100011:
+                errText = "文章不存在";
+                break;
             default:
                 errText = String.valueOf(errCode);
         }

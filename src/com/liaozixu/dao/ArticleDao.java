@@ -43,8 +43,11 @@ public class ArticleDao {
             mysqlBaseContorManager.setOrder(new String[]{"id", "DESC"});
             mysqlBaseContorManager.setPrefix(true);
             ArrayList<String[]> where = new ArrayList<>();
-            if (type != 0) {
+            if (type != 0 && type != -1) {
                 where.add(new String[]{pre + "article.type", "=", String.valueOf(type)});
+            }
+            if (type == -1) {
+                where.add(new String[]{pre + "article.type", "!=", "0"});
             }
             if (categoryAlias != null) {
                 where.add(new String[]{pre + "category.alias", "=", categoryAlias});
@@ -58,6 +61,7 @@ public class ArticleDao {
                     pre + "article.id",
                     pre + "article.type",
                     pre + "article.title",
+                    pre + "article.ip",
                     pre + "article.description",
                     pre + "article.postTime",
                     pre + "article.keywords",
@@ -113,6 +117,7 @@ public class ArticleDao {
             mysqlBaseContorManager.setTableKey(new String[]{
                     pre + "article.id",
                     pre + "article.title",
+                    pre + "article.ip",
                     pre + "article.description",
                     pre + "article.alias",
                     pre + "article.categoryID",
@@ -183,9 +188,7 @@ public class ArticleDao {
         mysqlBaseContorManager.setPrefix(true);
         mysqlBaseContorManager.setTableName("article");
         HashMap<String, String> insert = new HashMap<>();
-        if (article.getType() != 0) {
-            insert.put("type", String.valueOf(article.getType()));
-        }
+        insert.put("type", String.valueOf(article.getType()));
         if (article.getTitle() != null) {
             insert.put("title", article.getTitle());
         }

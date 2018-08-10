@@ -1,0 +1,68 @@
+<div class="nowNav mg-b-16">
+    <div class="row">
+        <span>当前位置：</span>
+        <a href="#/category/list">分类管理</a>
+        <i class="mg-l-8 mg-r-8">/</i>
+        <a href="#/category/edit">编辑分类</a>
+    </div>
+</div>
+<div class="public-Bg border-radius pd-24 mg-b-16">
+    <div class="row">
+        <div class="publicTitle tableTitle title-border pd-b-24">
+            <span>编辑分类</span>
+        </div>
+    </div>
+    <div class="border-bom pd-b-16 pd-t-16 mg-r-16 ">
+        <span class="text-md textDold textColor1">基本信息</span>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">标题
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入标题" ng-model="postMap.title">
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">别名
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入别名" ng-model="postMap.alias">
+                <button class="btn rechargeBtn mg-r-8" ng-click="tencentTranslation(item)">腾讯翻译</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">关键词
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入关键词" ng-model="postMap.keywords">
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">简介
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入简介" ng-model="postMap.description">
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel"></label>
+        <div class="row">
+            <button class="formBtn formBtnW border-radius" ng-click="commit()">提交</button>
+        </div>
+    </div>
+</div>

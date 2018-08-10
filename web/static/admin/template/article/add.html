@@ -1,0 +1,171 @@
+<link rel="stylesheet" href="/static/markdownEditor/css/editormd.min.css"/>
+<div class="nowNav mg-b-16">
+    <div class="row">
+        <span>当前位置：</span>
+        <a href="#/article/list">文章管理</a>
+        <i class="mg-l-8 mg-r-8">/</i>
+        <a href="#/article/add">新增文章</a>
+    </div>
+</div>
+<div class="public-Bg border-radius pd-24 mg-b-16">
+    <div class="row">
+        <div class="publicTitle tableTitle title-border pd-b-24">
+            <span>新增文章</span>
+        </div>
+    </div>
+    <div class="row border-bom mg-b-24">
+        <div class="tabTitle mg-t-24 mg-b-24 border-radius box-border">
+            <ul>
+                <li>
+                    <a href="#/article/list">文章管理</a>
+                </li>
+                <li class="tabSelect">
+                    <a href="javascript:;">新增文章</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-bom pd-b-16 pd-t-16 mg-r-16 ">
+        <span class="text-md textDold textColor1">基本信息</span>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">标题
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入标题" ng-model="postMap.title">
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">时间
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请选择时间" ng-model="postMap.postTime" id="postTime">
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">别名
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入别名" ng-model="postMap.alias">
+                <button class="btn rechargeBtn mg-r-8" ng-click="tencentTranslation(item)">腾讯翻译</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">关键词
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <input class="formInput" type="text" placeholder="请输入关键词" ng-model="postMap.keywords">
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">简介
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="cardInput row col-lg-8">
+                <textarea class="formInput" rows="3" ng-model="postMap.description"
+                          style="height:auto !important;resize: vertical;">
+                </textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">分类
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="row">
+                <label class="mg-r-24 row pre">
+                    <div ng-click="showCategory()" class="row">
+                        <input class="inputBox timeInput pullDownRight" type="text" placeholder="请选择"
+                               ng-model="categoryTitle" disabled="disabled">
+                        <a href="javascript:;" class="pullDownBtn fl">
+                            <i class="iconfont icon-pulldown"></i>
+                        </a>
+                    </div>
+                    <ul class="dropBox" ng-show="isShowCategory">
+                        <li ng-repeat="item in categoryList">
+                            <a href="javascript:;" ng-click="onCategoryChoise(item)">{{item.title}}</a>
+                        </li>
+                    </ul>
+
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">原创
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="row">
+                <label class="mg-r-24 row pre">
+                    <div ng-click="showOriginal()" class="row">
+                        <input class="inputBox timeInput pullDownRight" type="text" placeholder="请选择"
+                               ng-model="originalTitle" disabled="disabled">
+                        <a href="javascript:;" class="pullDownBtn fl">
+                            <i class="iconfont icon-pulldown"></i>
+                        </a>
+                    </div>
+                    <ul class="dropBox" ng-show="isshowOriginal">
+                        <li ng-repeat="item in originalList">
+                            <a href="javascript:;" ng-click="onoriginalChoise(item)">{{item.title}}</a>
+                        </li>
+                    </ul>
+
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel">类型
+            <span class="star">*</span>
+        </label>
+        <div class="column col-lg-5">
+            <div class="row">
+                <label class="mg-r-24 row pre">
+                    <div ng-click="showType()" class="row">
+                        <input class="inputBox timeInput pullDownRight" type="text" placeholder="请选择"
+                               ng-model="typeTitle" disabled="disabled">
+                        <a href="javascript:;" class="pullDownBtn fl">
+                            <i class="iconfont icon-pulldown"></i>
+                        </a>
+                    </div>
+                    <ul class="dropBox" ng-show="isShowTypeList">
+                        <li ng-repeat="item in typeList">
+                            <a href="javascript:;" ng-click="onTypeChoise(item)">{{item.title}}</a>
+                        </li>
+                    </ul>
+
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="border-bom pd-b-16 pd-t-16 mg-r-16 ">
+        <span class="text-md textDold textColor1">文章内容</span>
+    </div>
+    <div class="row mg-t-24">
+        <div id="editormd"></div>
+    </div>
+    <div class="row mg-t-24">
+        <label class="controlLabel col-sm-5 mg-r-24 cardLabel"></label>
+        <div class="row">
+            <button class="formBtn formBtnW border-radius" ng-click="commit()">提交</button>
+        </div>
+    </div>
+</div>

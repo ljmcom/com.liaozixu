@@ -17,6 +17,21 @@ public class CategoryDao {
     private static int expires = Integer.parseInt(config.get("expires"));
     private static int pageNum = Integer.parseInt(config.get("pageNum"));
 
+    public static List<Category> getAll() {
+        MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
+        mysqlBaseContorManager.setOrder(new String[]{"id", "DESC"});
+        mysqlBaseContorManager.setPrefix(true);
+        ArrayList<String[]> where = new ArrayList<>();
+        where.add(new String[]{"type", "=", "1"});
+        mysqlBaseContorManager.setWhere(where);
+        mysqlBaseContorManager.setTableName("category");
+        ArrayList<HashMap<String, String>> row = mysqlBaseContorManager.select();
+        if (row == null) {
+            return null;
+        }
+        return toEntity(row);
+    }
+
     public static Page<Category> getList(int page, int type) {
         if (page == 0) {
             return null;
@@ -57,38 +72,44 @@ public class CategoryDao {
         return pageArticle;
     }
 
-    public static boolean save(Category category){
+    public static boolean save(Category category) {
         MysqlBaseContorManager mysqlBaseContorManager = new MysqlBaseContorManager();
         mysqlBaseContorManager.setPrefix(true);
         mysqlBaseContorManager.setTableName("category");
-        HashMap<String,String> insert = new HashMap<>();
-        if(category.getAlias() != null){
-            insert.put("alias",category.getAlias());
+        HashMap<String, String> insert = new HashMap<>();
+        if (category.getAlias() != null) {
+            insert.put("alias", category.getAlias());
         }
-        if(category.getDescription() != null){
-            insert.put("description",category.getDescription());
+        if (category.getDescription() != null) {
+            insert.put("description", category.getDescription());
         }
-        if(category.getKeywords() != null){
-            insert.put("keywords",category.getKeywords());
+        if (category.getKeywords() != null) {
+            insert.put("keywords", category.getKeywords());
         }
-        if(category.getTitle() != null){
-            insert.put("title",category.getTitle());
+        if (category.getTitle() != null) {
+            insert.put("title", category.getTitle());
         }
-        if(category.getType() != 0){
-            insert.put("type",String.valueOf(category.getType()));
-        }
+        insert.put("type", String.valueOf(category.getType()));
         mysqlBaseContorManager.setInsert(insert);
-        if(category.getId() != 0){
+        if (category.getId() != 0) {
             ArrayList<String[]> where = new ArrayList<>();
-            where.add(new String[]{"id","=",String.valueOf(category.getId())});
+            where.add(new String[]{"id", "=", String.valueOf(category.getId())});
             mysqlBaseContorManager.setWhere(where);
-            if(!mysqlBaseContorManager.update()){
+            if (!mysqlBaseContorManager.update()) {
                 return false;
-            }else{
+            } else {
                 RedisOperationManager.batchDel("category_get_list_dao");
                 return true;
             }
-        }else{
+        } else {
+//            查查别名有无重复
+            ArrayList<String[]> where = new ArrayList<>();
+            where.add(new String[]{"alias", "=", category.getAlias()});
+            mysqlBaseContorManager.setWhere(where);
+            ArrayList<HashMap<String, String>> selectRes = mysqlBaseContorManager.select();
+            if (selectRes != null && selectRes.size() != 0) {
+                return false;
+            }
             if (!mysqlBaseContorManager.insert()) {
                 return false;
             } else {
@@ -106,7 +127,7 @@ public class CategoryDao {
         return list;
     }
 
-    private static Category toEntity(HashMap<String, String> item){
+    private static Category toEntity(HashMap<String, String> item) {
         Category category = new Category();
         category.setAlias(item.get("alias"));
         category.setDescription(item.get("description"));

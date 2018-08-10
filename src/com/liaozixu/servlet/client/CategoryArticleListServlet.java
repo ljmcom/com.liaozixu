@@ -30,11 +30,6 @@ public class CategoryArticleListServlet extends HttpServlet {
             GatewayUtils.showJson(false, 100002, null, response);
             return;
         }
-        if(articleList.getRow().size() == 0){
-//            该分类下没有文章
-
-            return;
-        }
         request.setAttribute("articleList", articleList);
         request.getRequestDispatcher("/WEB-INF/view/client/category/article/list.jsp").forward(request, response);
     }

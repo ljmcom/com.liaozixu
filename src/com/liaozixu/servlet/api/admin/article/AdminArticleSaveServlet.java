@@ -5,6 +5,7 @@ import com.liaozixu.entity.Article;
 import com.liaozixu.util.CommonUtils;
 import com.liaozixu.util.DateUtils;
 import com.liaozixu.util.GatewayUtils;
+import com.liaozixu.util.ServletUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 
 @WebServlet(name = "AdminArticleSaveServlet", urlPatterns = {"/api/admin/article/save"})
@@ -28,11 +30,19 @@ public class AdminArticleSaveServlet extends HttpServlet {
                 article.setType(Integer.parseInt(postMap.get("type")));
             }
         }
+        if (postMap.get("id") != null) {
+            if (!CommonUtils.checkRoundNum(postMap.get("id"))) {
+                GatewayUtils.showJson(false, 100001, null, response);
+                return;
+            } else {
+                article.setId(Integer.parseInt(postMap.get("id")));
+            }
+        }
         if (postMap.get("title") != null) {
             article.setTitle(postMap.get("title"));
         }
         if (postMap.get("description") != null) {
-            article.setDescription(article.getDescription());
+            article.setDescription(postMap.get("description"));
         }
         if (postMap.get("contentRaw") != null) {
             article.setContentRaw(postMap.get("contentRaw"));
@@ -40,11 +50,11 @@ public class AdminArticleSaveServlet extends HttpServlet {
         if (postMap.get("contentText") != null) {
             article.setContentText(postMap.get("contentText"));
         }
-        if (postMap.get("ip") != null) {
-            article.setIp(postMap.get("ip"));
-        }
-        if (postMap.get("postTime") != null) {
+        article.setIp(ServletUtils.getIpAddr(request));
+        if(postMap.get("postTime") != null){
             article.setPostTime(DateUtils.strToDateLong(postMap.get("postTime")));
+        }else{
+            article.setPostTime(new Date());
         }
         if (postMap.get("keywords") != null) {
             article.setKeywords(postMap.get("keywords"));

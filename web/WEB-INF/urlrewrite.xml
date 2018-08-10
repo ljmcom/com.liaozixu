@@ -17,7 +17,7 @@
     </rule>
     <rule>
         <from>^/category/page-([0-9]+).html$</from>
-        <to>/do/category/list?page=1&amp;url=$0</to>
+        <to>/do/category/list?page=$1&amp;url=$0</to>
     </rule>
     <rule>
         <from>^/category/(.+)/index.html$</from>
@@ -33,6 +33,6 @@
     </rule>
     <rule>
         <from>^/archive/page-([0-9]+).html$</from>
-        <to>/do/archive/list?page=1&amp;url=$0</to>
+        <to>/do/archive/list?page=$1&amp;url=$0</to>
     </rule>
 </urlrewrite>

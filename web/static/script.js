@@ -86,7 +86,7 @@ function client() {
                     if (res.resultCode) {
                         var row = res.data;
                         var outHtml = "<ul>";
-                        for (var i = 0; i < 4; i++) {
+                        for (var i = 0; i < 3; i++) {
                             var item = row[i];
                             outHtml += "<li>" +
                                 "<div class=\"row\">" +

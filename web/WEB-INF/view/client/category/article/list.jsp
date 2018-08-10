@@ -8,8 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="cpi" uri="http://liaozixu.com/tld/cpi" %>
-<%@include file="/WEB-INF/view/client/header.jsp"%>
+<%@include file="/WEB-INF/view/client/header.jsp" %>
 <section class="main centreGrid">
+    <c:if test="${articleList.getRow().size()==0}">
+        <div class="articleList grid_Bg partBomMg grid_pd">
+            本分类下没有文章
+        </div>
+    </c:if>
     <c:forEach items="${articleList.row}" var="item">
         <div class="articleList grid_Bg partBomMg grid_pd">
             <div class="articleBox">
@@ -19,7 +24,8 @@
                         <i class="iconfont icon-Originality"></i>
                     </c:if>
                     <span class="textColor1">${DateUtils.dateToStr(item.postTime)}</span>
-                    <p class="textColor1 classifyLabel">分类<a href="${item.categoryUrl}" class="textColor2">${item.categoryTitle}</a></p>
+                    <p class="textColor1 classifyLabel">分类<a href="${item.categoryUrl}"
+                                                             class="textColor2">${item.categoryTitle}</a></p>
                 </div>
                 <div class="articleDec">${item.description}</div>
                 <div class="row justifyCenter">
@@ -28,9 +34,11 @@
             </div>
         </div>
     </c:forEach>
-    <cpi:show page="${articleList}" isEndPageJsFunc="isEndPage" isFirstPageJsFunc="isFirstPage" maxBtn="10"/>
+    <c:if test="${articleList.getRow().size()!=0}">
+        <cpi:show page="${articleList}" isEndPageJsFunc="isEndPage" isFirstPageJsFunc="isFirstPage" maxBtn="10"/>
+    </c:if>
 </section>
-<%@include file="/WEB-INF/view/client/footer.jsp"%>
+<%@include file="/WEB-INF/view/client/footer.jsp" %>
 <script src="${webUrl}/static/script.js"></script>
 <script>
     var pageType = "categoryArticle";

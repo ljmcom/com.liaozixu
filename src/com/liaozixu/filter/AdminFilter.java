@@ -21,7 +21,8 @@ public class AdminFilter implements Filter {
 
     private boolean isException(ServletRequest req) {
         String[] path = new String[]{
-                "/admin/login"
+                "/admin/login",
+                "/admin/markdownEditor/upload"
         };
         HttpServletRequest request = (HttpServletRequest) req;
         String nPath = request.getRequestURI();
@@ -50,6 +51,7 @@ public class AdminFilter implements Filter {
         }
         AdminUser adminUser = AdminUserDao.toEntity(adminUserMap);
         req.setAttribute("adminUser", adminUser);
+        req.setAttribute("adminToken", token);
         chain.doFilter(req, resp);
     }
 
